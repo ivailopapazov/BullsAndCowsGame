@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BullsAndCows.Web", "BullsAndCows.Web\BullsAndCows.Web.csproj", "{C6DCCB23-86E9-4E29-8312-73A7576CEAFB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BullsAndCows.Models", "BullsAndCows.Models\BullsAndCows.Models.csproj", "{166B4F44-D414-4DCD-90E9-C7810685787E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BullsAndCows.Data", "BullsAndCows.Data\BullsAndCows.Data.csproj", "{371E6634-0921-42EF-9538-2F8628EC8584}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6DCCB23-86E9-4E29-8312-73A7576CEAFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6DCCB23-86E9-4E29-8312-73A7576CEAFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6DCCB23-86E9-4E29-8312-73A7576CEAFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6DCCB23-86E9-4E29-8312-73A7576CEAFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{166B4F44-D414-4DCD-90E9-C7810685787E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{166B4F44-D414-4DCD-90E9-C7810685787E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{166B4F44-D414-4DCD-90E9-C7810685787E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{166B4F44-D414-4DCD-90E9-C7810685787E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{371E6634-0921-42EF-9538-2F8628EC8584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{371E6634-0921-42EF-9538-2F8628EC8584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{371E6634-0921-42EF-9538-2F8628EC8584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{371E6634-0921-42EF-9538-2F8628EC8584}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
