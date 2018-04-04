@@ -2,7 +2,7 @@ namespace BullsAndCows.Data.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<BullsAndCowsDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<BullsAndCowsDbContext>
     {
         public Configuration()
         {
