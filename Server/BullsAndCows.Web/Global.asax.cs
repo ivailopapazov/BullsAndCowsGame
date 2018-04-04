@@ -12,11 +12,11 @@
         {
             base.OnApplicationStarted();
 
+            DatabaseConfig.Initialize();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            DatabaseConfig.Initialize();
         }
 
         protected override IKernel CreateKernel()

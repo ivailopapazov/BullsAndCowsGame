@@ -9,7 +9,7 @@
         public static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<DbContext>().To<BullsAndCowsDbContext>();
-            //kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
+            kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
         }
     }
 }
