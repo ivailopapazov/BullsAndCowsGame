@@ -8,9 +8,8 @@
     {
         public static void RegisterServices(IKernel kernel)
         {
-            // e.g. kernel.Load(Assembly.GetExecutingAssembly());
             kernel.Bind<DbContext>().To<BullsAndCowsDbContext>();
-            kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
+            //kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
         }
     }
 }
