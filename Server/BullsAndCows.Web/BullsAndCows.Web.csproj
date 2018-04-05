@@ -204,6 +204,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -231,6 +232,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -272,6 +275,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Game\Play.cshtml" />
+    <Content Include="Views\Shared\_GuessRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -297,6 +302,10 @@
     <ProjectReference Include="..\BullsAndCows.Models\BullsAndCows.Models.csproj">
       <Project>{beaaa153-b985-4dba-8856-e0c13542ff2c}</Project>
       <Name>BullsAndCows.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BullsAndCows.Services\BullsAndCows.Services.csproj">
+      <Project>{c96f4a4d-a9c0-45ec-9a29-e7852f0455fc}</Project>
+      <Name>BullsAndCows.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

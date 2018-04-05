@@ -1,0 +1,43 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "Play";
+}
+
+<h2>Play</h2>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Heading</div>
+    <div class="panel-body">
+        <p>Your secret number is: 4321</p>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Guess</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody id="player-guess-list">
+            @foreach (var item in Model)
+            {
+                @Html.Partial("_GuessRow", item);
+            }
+        </tbody>
+    </table>
+    <div class="panel-footer">
+        <div>
+            @using (Ajax.BeginForm("MakeGuess", new AjaxOptions
+            {
+                UpdateTargetId = "player-guess-list",
+                InsertionMode = InsertionMode.InsertAfter
+            }))
+            {
+                <label for="guess-number">guess number:</label>
+                <input type="text" id="guess-number" name="number" />
+                <input type="submit" value="make guess" />
+            }
+        </div>
+    </div>
+</div>

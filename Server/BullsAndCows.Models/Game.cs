@@ -22,9 +22,11 @@
 
         public bool IsVictory { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public string PlayerNumber { get; set; }
 
-        // Gamestate enum
+        public string ComputerNumber { get; set; }
+
+        public DateTime DateCreated { get; set; }
 
         [Required]
         public int UserId { get; set; }
