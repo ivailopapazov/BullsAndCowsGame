@@ -1,6 +1,6 @@
 ﻿@model BullsAndCows.Web.ViewModels.GameStateViewModel
 @{
-    ViewBag.Title = "Play"; 
+    ViewBag.Title = "Play";
 }
 
 <h2>Play</h2>
@@ -9,16 +9,23 @@
     <div class="panel-heading">Player</div>
     <div class="panel-body">
         <div id="number-controls">
-            @using (Ajax.BeginForm("Start", new AjaxOptions
+            @if (Model.GameViewModel.PlayerNumber == null)
             {
-                UpdateTargetId = "number-controls",
-                InsertionMode = InsertionMode.Replace,
-                OnComplete = "showGameBoard"
-            }))
+                using (Ajax.BeginForm("Start", new AjaxOptions
+                {
+                    UpdateTargetId = "number-controls",
+                    InsertionMode = InsertionMode.Replace,
+                    OnComplete = "showGameBoard"
+                }))
+                {
+                    <label for="player-number">Enter your secret number</label>
+                    <input type="text" id="player-number" name="playerNumber" />
+                    <input type="submit" value="Start" />
+                }
+            }
+            else
             {
-                <label for="player-number">Enter your secret number</label>
-                <input type="text" id="player-number" name="playerNumber" />
-                <input type="submit" value="Start" />
+                Html.RenderPartial("_NumberControlsGameStarted", Model.GameViewModel);
             }
         </div>
 
