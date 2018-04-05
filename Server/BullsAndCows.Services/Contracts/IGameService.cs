@@ -4,10 +4,10 @@
 
     public interface IGameService
     {
-        Game StartGame(string number, string userId);
+        Game StartGame(string playerNumber, string userId);
 
         Game GetCurrentGame(string userId);
 
-        Guess MakeGuess(string number, string userId);
+        Guess MakeGuess(string guessNumber, string userId);
     }
 }

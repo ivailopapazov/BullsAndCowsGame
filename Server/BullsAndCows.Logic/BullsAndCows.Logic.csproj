@@ -44,6 +44,7 @@
     <Compile Include="Common\NumberGenerator.cs" />
     <Compile Include="Contracts\IGameManager.cs" />
     <Compile Include="GameManager.cs" />
+    <Compile Include="Models\GuessResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

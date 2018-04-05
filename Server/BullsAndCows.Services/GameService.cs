@@ -2,6 +2,7 @@
 {
     using BullsAndCows.Data;
     using BullsAndCows.Logic.Contracts;
+    using BullsAndCows.Logic.Models;
     using BullsAndCows.Models;
     using BullsAndCows.Services.Contracts;
     using System;
@@ -20,13 +21,13 @@
             this.gameManager = gameManager;
         }
 
-        public Game StartGame(string number, string userId)
+        public Game StartGame(string playerNumber, string userId)
         {
             string computerNumber = this.gameManager.GenerateGameNumber();
 
             Game newGame = new Game()
             {
-                PlayerNumber = number,
+                PlayerNumber = playerNumber,
                 UserId = userId,
                 DateCreated = DateTime.UtcNow,
                 ComputerNumber = computerNumber
@@ -46,21 +47,20 @@
             return startedGame;
         }
 
-        public Guess MakeGuess(string number, string userId)
+        public Guess MakeGuess(string guessNumber, string userId)
         {
             Game currentGame = this.GetCurrentGame(userId);
 
-            // TODO: Call game logic layer to handle the guess
+            GuessResult guessResult = this.gameManager.CheckNumber(guessNumber, currentGame.ComputerNumber);
 
             Guess newGuess = new Guess()
             {
                 GameId = currentGame.Id,
-                Number = number,
+                Number = guessNumber,
                 DateCreated = DateTime.UtcNow,
                 UserId = userId,
-                BullsCount = 1, // TODO: computed values here
-                CowsCount = 2, // TODO: computed values here
-                
+                BullsCount = guessResult.BullsCount,
+                CowsCount = guessResult.CowsCount,
             };
 
             this.guesses.Add(newGuess);
