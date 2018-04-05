@@ -22,6 +22,8 @@
 
         public bool IsVictory { get; set; }
 
+        [MinLength(4)]
+        [MaxLength(4)]
         public string PlayerNumber { get; set; }
 
         public string ComputerNumber { get; set; }
@@ -29,7 +31,7 @@
         public DateTime DateCreated { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual User User { get; set; }
 

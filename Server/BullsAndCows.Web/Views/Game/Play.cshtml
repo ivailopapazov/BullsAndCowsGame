@@ -6,38 +6,55 @@
 <h2>Play</h2>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Heading</div>
+    <div class="panel-heading">Player</div>
     <div class="panel-body">
-        <p>Your secret number is: 4321</p>
-    </div>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Guess</th>
-                <th>Result</th>
-            </tr>
-        </thead>
-        <tbody id="player-guess-list">
-            @foreach (var item in Model)
+        <div id="secret-number-control">
+            @using (Ajax.BeginForm("Start", new AjaxOptions
             {
-                @Html.Partial("_GuessRow", item);
-            }
-        </tbody>
-    </table>
-    <div class="panel-footer">
-        <div>
-            @using (Ajax.BeginForm("MakeGuess", new AjaxOptions
-            {
-                UpdateTargetId = "player-guess-list",
-                InsertionMode = InsertionMode.InsertAfter
+                UpdateTargetId = "secret-number-control",
+                InsertionMode = InsertionMode.Replace,
+                OnComplete = "showGameBoard"
             }))
             {
-                <label for="guess-number">guess number:</label>
-                <input type="text" id="guess-number" name="number" />
-                <input type="submit" value="make guess" />
+                <label for="secret-number">Enter your secret number</label>
+                <input type="text" name="number" />
+                <input type="submit" value="Start" />
             }
         </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Guess</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody id="player-guess-list">
+                @foreach (var item in Model)
+                {
+                    @Html.Partial("_GuessRow", item);
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-footer hidden" id="guess-controls">
+        @using (Ajax.BeginForm("MakeGuess", new AjaxOptions
+        {
+            UpdateTargetId = "player-guess-list",
+            InsertionMode = InsertionMode.InsertAfter
+        }))
+        {
+            <label for="guess-number">guess number:</label>
+            <input type="text" id="guess-number" name="number" />
+            <input type="submit" value="make guess" />
+        }
     </div>
 </div>
+
+<script>
+    function showGameBoard() {
+        $('#guess-controls').removeClass('hidden');
+    }
+</script>
