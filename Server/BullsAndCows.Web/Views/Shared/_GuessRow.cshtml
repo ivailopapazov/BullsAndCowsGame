@@ -1,7 +1,8 @@
-﻿@model string
+﻿@model BullsAndCows.Web.ViewModels.GuessViewModel
 
 <tr>
-    <td>1</td>
-    <td>@Model</td>
-    <td>1 Bull, 1 Cow.</td>
+    <td>@Model.Id</td>
+    <td>@Model.Number</td>
+    <td>@Model.BullsCount Bulls</td>
+    <td>@Model.CowsCount Cows</td>
 </tr>

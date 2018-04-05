@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class StartGameViewModel
+    public class GameViewModel
     {
         public int Id { get; set; }
 

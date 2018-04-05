@@ -1,6 +1,6 @@
-﻿@model List<string>
+﻿@model BullsAndCows.Web.ViewModels.GameStateViewModel
 @{
-    ViewBag.Title = "Play";
+    ViewBag.Title = "Play"; 
 }
 
 <h2>Play</h2>
@@ -8,16 +8,16 @@
 <div class="panel panel-primary">
     <div class="panel-heading">Player</div>
     <div class="panel-body">
-        <div id="secret-number-control">
+        <div id="number-controls">
             @using (Ajax.BeginForm("Start", new AjaxOptions
             {
-                UpdateTargetId = "secret-number-control",
+                UpdateTargetId = "number-controls",
                 InsertionMode = InsertionMode.Replace,
                 OnComplete = "showGameBoard"
             }))
             {
-                <label for="secret-number">Enter your secret number</label>
-                <input type="text" name="number" />
+                <label for="player-number">Enter your secret number</label>
+                <input type="text" id="player-number" name="playerNumber" />
                 <input type="submit" value="Start" />
             }
         </div>
@@ -27,27 +27,28 @@
                 <tr>
                     <th>#</th>
                     <th>Guess</th>
-                    <th>Result</th>
+                    <th>Bulls</th>
+                    <th>Cows</th>
                 </tr>
             </thead>
             <tbody id="player-guess-list">
-                @foreach (var item in Model)
+                @*@foreach (var item in Model.PlayerGuesses)
                 {
                     @Html.Partial("_GuessRow", item);
-                }
+                }*@
             </tbody>
         </table>
     </div>
 
-    <div class="panel-footer hidden" id="guess-controls">
+    <div class="panel-footer" id="guess-controls">
         @using (Ajax.BeginForm("MakeGuess", new AjaxOptions
         {
             UpdateTargetId = "player-guess-list",
             InsertionMode = InsertionMode.InsertAfter
         }))
         {
-            <label for="guess-number">guess number:</label>
-            <input type="text" id="guess-number" name="number" />
+            <label for="player-guess">Your guess:</label>
+            <input type="text" id="player-guess" name="playerGuess" />
             <input type="submit" value="make guess" />
         }
     </div>
@@ -55,6 +56,6 @@
 
 <script>
     function showGameBoard() {
-        $('#guess-controls').removeClass('hidden');
+        //$('#guess-controls').removeClass('hidden');
     }
 </script>

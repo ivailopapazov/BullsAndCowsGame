@@ -215,7 +215,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\StartGameViewModel.cs" />
+    <Compile Include="ViewModels\GameStateViewModel.cs" />
+    <Compile Include="ViewModels\GuessViewModel.cs" />
+    <Compile Include="ViewModels\GameViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -278,7 +280,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Game\Play.cshtml" />
     <Content Include="Views\Shared\_GuessRow.cshtml" />
-    <Content Include="Views\Shared\_SecretNumberEntered.cshtml" />
+    <Content Include="Views\Shared\_NumberControlsGameStarted.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

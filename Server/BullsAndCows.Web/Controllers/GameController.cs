@@ -12,48 +12,56 @@
     public class GameController : Controller
     {
         private IGameService games;
-        private List<string> numbers;
 
         public GameController(IGameService games)
         {
             this.games = games;
-            this.numbers = new List<string>();
         }
 
         public ActionResult Index()
         {
             // TODO: Check if user has already started game
 
-
             return View();
         }
 
         public ActionResult Play()
         {
-            return View(this.numbers);
+            var gameState = new GameStateViewModel();
+
+            return View(gameState);
         }
 
-        public ActionResult Start(string number)
+        public ActionResult Start(string playerNumber)
         {
             // TODO: Validate number
 
-            var newGame = this.games.StartGame(number, this.User.Identity.GetUserId());
+            var newGame = this.games.StartGame(playerNumber, this.User.Identity.GetUserId());
 
-            var result = new StartGameViewModel()
+            var result = new GameViewModel()
             {
                 Id = newGame.Id,
                 PlayerNumber = newGame.PlayerNumber,
                 DateCreated = newGame.DateCreated
             };
 
-            return PartialView("_SecretNumberEntered", result);
+            return PartialView("_NumberControlsGameStarted", result);
         }
 
-        public ActionResult MakeGuess(string number)
+        public ActionResult MakeGuess(string playerGuess)
         {
-            this.numbers.Add(number);
+            var newGuess = this.games.MakeGuess(playerGuess, this.User.Identity.GetUserId());
 
-            return PartialView("_GuessRow", number);
+            var result = new GuessViewModel()
+            {
+                Id = newGuess.Id,
+                Number = newGuess.Number,
+                BullsCount = newGuess.BullsCount,
+                CowsCount = newGuess.CowsCount,
+                DateCreated = newGuess.DateCreated
+            };
+
+            return PartialView("_GuessRow", result);
         }
     }
 }
