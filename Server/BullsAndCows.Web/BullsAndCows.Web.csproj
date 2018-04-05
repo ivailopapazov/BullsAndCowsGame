@@ -303,6 +303,10 @@
       <Project>{f8f9ebcc-9d10-494d-8ddb-14a4e779dea6}</Project>
       <Name>BullsAndCows.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BullsAndCows.Logic\BullsAndCows.Logic.csproj">
+      <Project>{565652c1-3db8-4d88-9599-4a892f4f35b4}</Project>
+      <Name>BullsAndCows.Logic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BullsAndCows.Models\BullsAndCows.Models.csproj">
       <Project>{beaaa153-b985-4dba-8856-e0c13542ff2c}</Project>
       <Name>BullsAndCows.Models</Name>

@@ -1,6 +1,9 @@
 ﻿namespace BullsAndCows.Web
 {
     using BullsAndCows.Data;
+    using BullsAndCows.Logic;
+    using BullsAndCows.Logic.Common;
+    using BullsAndCows.Logic.Contracts;
     using BullsAndCows.Services;
     using BullsAndCows.Services.Contracts;
     using Ninject;
@@ -13,6 +16,8 @@
             kernel.Bind<DbContext>().To<BullsAndCowsDbContext>();
             kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
             kernel.Bind<IGameService>().To<GameService>();
+            kernel.Bind<INumberGenerator>().To<NumberGenerator>();
+            kernel.Bind<IGameManager>().To<GameManager>();
         }
     }
 }

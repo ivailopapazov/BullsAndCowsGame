@@ -1,6 +1,7 @@
 ﻿namespace BullsAndCows.Services
 {
     using BullsAndCows.Data;
+    using BullsAndCows.Logic.Contracts;
     using BullsAndCows.Models;
     using BullsAndCows.Services.Contracts;
     using System;
@@ -10,21 +11,25 @@
     {
         private IRepository<Game> games;
         private IRepository<Guess> guesses;
+        private IGameManager gameManager;
 
-        public GameService(IRepository<Game> games, IRepository<Guess> guesses)
+        public GameService(IRepository<Game> games, IRepository<Guess> guesses, IGameManager gameManager)
         {
             this.games = games;
             this.guesses = guesses;
+            this.gameManager = gameManager;
         }
 
         public Game StartGame(string number, string userId)
         {
+            string computerNumber = this.gameManager.GenerateGameNumber();
+
             Game newGame = new Game()
             {
                 PlayerNumber = number,
                 UserId = userId,
                 DateCreated = DateTime.UtcNow,
-                ComputerNumber = "1234", // TODO: Generate computer numer
+                ComputerNumber = computerNumber
             };
 
             this.games.Add(newGame);
