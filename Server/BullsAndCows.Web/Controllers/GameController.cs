@@ -43,6 +43,11 @@
             return View(gameState);
         }
 
+        public ActionResult Results()
+        {
+            return View();
+        }
+
         private GameStateViewModel RebuildGameState(Game currentGame)
         {
             var gameViewModel = new GameViewModel()
@@ -99,9 +104,9 @@
                 bool isVictory = !isComputerGuess;
                 this.games.EndGame(userId, isVictory);
 
-                // Send win or lose notification
-
                 // send to score service
+
+                return JavaScript("window.location = '/Game/Results'");
             }
 
             var result = new GuessViewModel()
