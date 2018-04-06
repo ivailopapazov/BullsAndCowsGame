@@ -50,15 +50,17 @@
             </div>
 
             <div class="panel-footer" id="player-guess-controls">
-                @using (Ajax.BeginForm("MakeGuess", new AjaxOptions
-                {
-                    UpdateTargetId = "player-guess-list",
-                    InsertionMode = InsertionMode.InsertAfter,
-                    OnComplete = "OnPlayerGuessComplete"
-                }))
+                @using (Ajax.BeginForm("MakeGuess",
+                    new { isComputerGuess = false },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = "player-guess-list",
+                        InsertionMode = InsertionMode.InsertAfter,
+                        OnComplete = "OnPlayerGuessComplete"
+                    }))
                 {
                     <label for="player-guess">Your guess:</label>
-                    <input type="text" id="player-guess" name="playerGuess" />
+                    <input type="text" id="player-guess" name="guessNumber" />
                     <input type="submit" value="make guess" />
                 }
             </div>
@@ -108,7 +110,7 @@
 
         setTimeout(function () {
             // jQuery hack to load partial template into computer guess list
-            var a = $('<div>').load('@Url.Action("MakeComputerGuess", "Game")', function () {
+            var a = $('<div>').load('@Url.Action("MakeGuess", "Game")', function () {
                 $(this).find('tr').first().appendTo('#computer-guess-list');
             })
 

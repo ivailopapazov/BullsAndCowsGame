@@ -8,8 +8,6 @@
 
         Game GetCurrentGame(string userId);
 
-        Guess MakeGuess(string guessNumber, string userId);
-
-        Guess MakeComputerGuess(string userId);
+        Guess MakeGuess(string userId, bool isComputerGuess = true, string guessNumber = null);
     }
 }

@@ -3,6 +3,7 @@
     using BullsAndCows.Logic.Common;
     using BullsAndCows.Logic.Contracts;
     using BullsAndCows.Logic.Models;
+    using System.Collections.Generic;
 
     public class GameManager : IGameManager
     {
@@ -48,13 +49,12 @@
             return result;
         }
 
-        public GuessResult ComputerMakeGuess(string playerNumber)
+        public string GenerateGuessNumber(IEnumerable<GuessResult> guesses)
         {
             // TODO: Implement something smart here
             var computerGuess = this.numberGenerator.GenerateGameNumber();
-            var result = this.CheckNumber(computerGuess, playerNumber);
 
-            return result;
+            return computerGuess;
         }
     }
 }

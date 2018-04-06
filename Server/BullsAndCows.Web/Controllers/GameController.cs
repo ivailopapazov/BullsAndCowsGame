@@ -90,10 +90,10 @@
             return PartialView("_NumberControlsGameStarted", result);
         }
 
-        public ActionResult MakeGuess(string playerGuess)
+        public ActionResult MakeGuess(bool isComputerGuess = true, string guessNumber = null)
         {
             var userId = this.User.Identity.GetUserId();
-            var newGuess = this.games.MakeGuess(playerGuess, userId);
+            var newGuess = this.games.MakeGuess(userId, isComputerGuess, guessNumber);
             if (newGuess.BullsCount == 4)
             {
                 
@@ -106,27 +106,6 @@
                 BullsCount = newGuess.BullsCount,
                 CowsCount = newGuess.CowsCount,
                 DateCreated = newGuess.DateCreated
-            };
-
-            return PartialView("_GuessRow", result);
-        }
-
-        public ActionResult MakeComputerGuess()
-        {
-            var userId = this.User.Identity.GetUserId();
-            var computerGuess = this.games.MakeComputerGuess(userId);
-            if (computerGuess.BullsCount == 4)
-            {
-
-            }
-
-            var result = new GuessViewModel()
-            {
-                Id = computerGuess.Id,
-                Number = computerGuess.Number,
-                BullsCount = computerGuess.BullsCount,
-                CowsCount = computerGuess.CowsCount,
-                DateCreated = computerGuess.DateCreated
             };
 
             return PartialView("_GuessRow", result);

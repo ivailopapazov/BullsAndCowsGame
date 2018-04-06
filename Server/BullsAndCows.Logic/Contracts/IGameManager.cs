@@ -1,6 +1,7 @@
 ﻿namespace BullsAndCows.Logic.Contracts
 {
     using BullsAndCows.Logic.Models;
+    using System.Collections.Generic;
 
     public interface IGameManager
     {
@@ -8,6 +9,6 @@
 
         GuessResult CheckNumber(string guess, string number);
 
-        GuessResult ComputerMakeGuess(string playerNumber);
+        string GenerateGuessNumber(IEnumerable<GuessResult> currentGuesses);
     }
 }
