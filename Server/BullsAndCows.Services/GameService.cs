@@ -82,5 +82,15 @@
 
             return newGuess;
         }
+
+        public void EndGame(string userId, bool isVictory)
+        {
+            Game currentGame = this.GetCurrentGame(userId);
+
+            currentGame.IsFinished = true;
+            currentGame.IsVictory = isVictory;
+
+            this.games.SaveChanges();
+        }
     }
 }

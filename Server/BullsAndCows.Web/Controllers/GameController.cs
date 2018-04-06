@@ -96,7 +96,12 @@
             var newGuess = this.games.MakeGuess(userId, isComputerGuess, guessNumber);
             if (newGuess.BullsCount == 4)
             {
-                
+                bool isVictory = !isComputerGuess;
+                this.games.EndGame(userId, isVictory);
+
+                // Send win or lose notification
+
+                // send to score service
             }
 
             var result = new GuessViewModel()
