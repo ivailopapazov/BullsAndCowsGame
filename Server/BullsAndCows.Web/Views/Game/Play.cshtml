@@ -49,11 +49,12 @@
                 </table>
             </div>
 
-            <div class="panel-footer" id="guess-controls">
+            <div class="panel-footer" id="player-guess-controls">
                 @using (Ajax.BeginForm("MakeGuess", new AjaxOptions
                 {
                     UpdateTargetId = "player-guess-list",
-                    InsertionMode = InsertionMode.InsertAfter
+                    InsertionMode = InsertionMode.InsertAfter,
+                    OnComplete = "OnPlayerGuessComplete"
                 }))
                 {
                     <label for="player-guess">Your guess:</label>
@@ -89,16 +90,8 @@
                 </table>
             </div>
 
-            <div class="panel-footer" id="guess-controls">
-                @using (Ajax.BeginForm("MakeComputerGuess", new AjaxOptions
-                {
-                    UpdateTargetId = "computer-guess-list",
-                    InsertionMode = InsertionMode.InsertAfter
-                }))
-                {
-                    <label for="player-guess">Computer guess:</label>
-                    <input type="submit" value="make guess" />
-                }
+            <div class="panel-footer" id="computer-guess-controls">
+                <span class="hidden" id="waiting-computer-guess">Waiting oponent...</span>
             </div>
         </div>
     </div>
@@ -108,5 +101,18 @@
 <script>
     function showGameBoard() {
         //$('#guess-controls').removeClass('hidden');
+    }
+
+    function OnPlayerGuessComplete() {
+        $('#waiting-computer-guess').removeClass('hidden');
+
+        setTimeout(function () {
+            // jQuery hack to load partial template into computer guess list
+            var a = $('<div>').load('@Url.Action("MakeComputerGuess", "Game")', function () {
+                $(this).find('tr').first().appendTo('#computer-guess-list');
+            })
+
+            $('#waiting-computer-guess').addClass('hidden');
+        }, 2000); // Set random timer for better user experience
     }
 </script>
