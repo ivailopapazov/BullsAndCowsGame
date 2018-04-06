@@ -9,5 +9,7 @@
         public string PlayerNumber { get; set; }
 
         public DateTime DateCreated { get; set; }
+
+        public bool IsVictory { get; set; }
     }
 }

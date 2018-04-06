@@ -1,8 +1,49 @@
-﻿@{
+﻿@model BullsAndCows.Web.ViewModels.GameStateViewModel
+@{
+    /**/
+
     ViewBag.Title = "Results";
 }
 
-<h2>Results</h2>
+@if (Model.GameViewModel.IsVictory)
+{
+    <div class="page-header">
+        <h1 class="text-success">
+            Congratulations! You Win!
+            <span class="glyphicon glyphicon-star text-warning"></span>
+            <br /><small>Game created on @Model.GameViewModel.DateCreated</small>
+        </h1>
+    </div>
+}
+else
+{
+    <div class="page-header">
+        <h1 class="text-danger">
+            Oh, Bummer :( You Lost!
+            <span class="glyphicon glyphicon-thumbs-down"></span>
+            <br /><small>Game created on @Model.GameViewModel.DateCreated</small>
+        </h1>
+    </div>
+}
 
-<h1>Some Game Statistics Here</h1>
-
+<h3 class="text-info text-center">Game Statistics:</h3>
+<div class="row text-center">
+    <div class="col-md-offset-3 col-md-3">
+        <h4>Your Guesses:</h4>
+        <ol>
+            @foreach (var guess in Model.PlayerGuesses)
+            {
+                <li>@guess.Number - @guess.BullsCount bulls, @guess.CowsCount cows.</li>
+            }
+        </ol>
+    </div>
+    <div class="col-md-3">
+        <h4>Oponent Guesses:</h4>
+        <ol>
+            @foreach (var guess in Model.ComputerGuesses)
+            {
+                <li>@guess.Number - @guess.BullsCount bulls, @guess.CowsCount cows.</li>
+            }
+        </ol>
+    </div>
+</div>

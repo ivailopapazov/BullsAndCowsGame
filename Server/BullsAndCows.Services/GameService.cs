@@ -47,9 +47,20 @@
             return startedGame;
         }
 
+        public Game GetLastGame(string userId)
+        {
+            Game lastGame = this.games.All()
+                .Where(g => g.IsFinished == true && g.UserId == userId)
+                .OrderByDescending(g => g.DateCreated)
+                .FirstOrDefault();
+
+            return lastGame;
+        }
+
         public Guess MakeGuess(string userId, bool isComputerGuess = true, string guessNumber = null)
         {
             Game currentGame = this.GetCurrentGame(userId);
+            GuessResult guessResult;
 
             // If it's computer
             if (isComputerGuess)
@@ -64,9 +75,13 @@
                         });
 
                 guessNumber = this.gameManager.GenerateGuessNumber(computerGuessList);
+                guessResult = this.gameManager.CheckNumber(guessNumber, currentGame.PlayerNumber);
+            }
+            else
+            {
+                guessResult = this.gameManager.CheckNumber(guessNumber, currentGame.ComputerNumber);
             }
 
-            GuessResult guessResult = this.gameManager.CheckNumber(guessNumber, currentGame.ComputerNumber);
             Guess newGuess = new Guess()
             {
                 GameId = currentGame.Id,

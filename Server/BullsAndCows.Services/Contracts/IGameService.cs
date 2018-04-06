@@ -8,6 +8,8 @@
 
         Game GetCurrentGame(string userId);
 
+        Game GetLastGame(string userId);
+
         Guess MakeGuess(string userId, bool isComputerGuess = true, string guessNumber = null);
 
         void EndGame(string userId, bool isVictory);

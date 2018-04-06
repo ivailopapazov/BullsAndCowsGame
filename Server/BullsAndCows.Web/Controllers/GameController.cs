@@ -4,10 +4,7 @@
     using BullsAndCows.Services.Contracts;
     using BullsAndCows.Web.ViewModels;
     using Microsoft.AspNet.Identity;
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
 
     public class GameController : Controller
@@ -21,7 +18,6 @@
 
         public ActionResult Index()
         {
-
             return View();
         }
 
@@ -45,25 +41,29 @@
 
         public ActionResult Results()
         {
-            return View();
+            var lastGame = this.games.GetLastGame(this.User.Identity.GetUserId());
+            var gameStateViewModel = this.RebuildGameState(lastGame);
+
+            return View(gameStateViewModel);
         }
 
-        private GameStateViewModel RebuildGameState(Game currentGame)
+        private GameStateViewModel RebuildGameState(Game game)
         {
             var gameViewModel = new GameViewModel()
             {
-                Id = currentGame.Id,
-                PlayerNumber = currentGame.PlayerNumber,
-                DateCreated = currentGame.DateCreated,
+                Id = game.Id,
+                PlayerNumber = game.PlayerNumber,
+                DateCreated = game.DateCreated,
+                IsVictory = game.IsVictory
             };
 
-            var playerGuessList = currentGame.Guesses
+            var playerGuessList = game.Guesses
                 .AsQueryable()
                 .Where(guess => guess.UserId != null)
                 .Select(GuessViewModel.FromGuess)
                 .ToList();
 
-            var computerGuessList = currentGame.Guesses
+            var computerGuessList = game.Guesses
                 .AsQueryable()
                 .Where(guess => guess.UserId == null)
                 .Select(GuessViewModel.FromGuess)
