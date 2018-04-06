@@ -29,11 +29,10 @@
         {
             GameStateViewModel gameState;
 
-            // TODO: Check if user has already started game
             var currentGame = this.games.GetCurrentGame(this.User.Identity.GetUserId());
             if (currentGame != null)
             {
-                gameState = this.GetGameState(currentGame);
+                gameState = this.RebuildGameState(currentGame);
             }
             else
             {
@@ -44,7 +43,7 @@
             return View(gameState);
         }
 
-        private GameStateViewModel GetGameState(Game currentGame)
+        private GameStateViewModel RebuildGameState(Game currentGame)
         {
             var gameViewModel = new GameViewModel()
             {
@@ -53,16 +52,23 @@
                 DateCreated = currentGame.DateCreated,
             };
 
-            // TODO: separate guesses when computer guesses
             var playerGuessList = currentGame.Guesses
                 .AsQueryable()
+                .Where(guess => guess.UserId != null)
+                .Select(GuessViewModel.FromGuess)
+                .ToList();
+
+            var computerGuessList = currentGame.Guesses
+                .AsQueryable()
+                .Where(guess => guess.UserId == null)
                 .Select(GuessViewModel.FromGuess)
                 .ToList();
 
             var result = new GameStateViewModel()
             {
                 GameViewModel = gameViewModel,
-                PlayerGuesses = playerGuessList
+                PlayerGuesses = playerGuessList,
+                ComputerGuesses = computerGuessList
             };
 
             return result;
@@ -86,7 +92,12 @@
 
         public ActionResult MakeGuess(string playerGuess)
         {
-            var newGuess = this.games.MakeGuess(playerGuess, this.User.Identity.GetUserId());
+            var userId = this.User.Identity.GetUserId();
+            var newGuess = this.games.MakeGuess(playerGuess, userId);
+            if (newGuess.BullsCount == 4)
+            {
+                
+            }
 
             var result = new GuessViewModel()
             {
@@ -95,6 +106,27 @@
                 BullsCount = newGuess.BullsCount,
                 CowsCount = newGuess.CowsCount,
                 DateCreated = newGuess.DateCreated
+            };
+
+            return PartialView("_GuessRow", result);
+        }
+
+        public ActionResult MakeComputerGuess()
+        {
+            var userId = this.User.Identity.GetUserId();
+            var computerGuess = this.games.MakeComputerGuess(userId);
+            if (computerGuess.BullsCount == 4)
+            {
+
+            }
+
+            var result = new GuessViewModel()
+            {
+                Id = computerGuess.Id,
+                Number = computerGuess.Number,
+                BullsCount = computerGuess.BullsCount,
+                CowsCount = computerGuess.CowsCount,
+                DateCreated = computerGuess.DateCreated
             };
 
             return PartialView("_GuessRow", result);

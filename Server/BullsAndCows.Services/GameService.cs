@@ -50,13 +50,12 @@
         public Guess MakeGuess(string guessNumber, string userId)
         {
             Game currentGame = this.GetCurrentGame(userId);
-
             GuessResult guessResult = this.gameManager.CheckNumber(guessNumber, currentGame.ComputerNumber);
 
             Guess newGuess = new Guess()
             {
                 GameId = currentGame.Id,
-                Number = guessNumber,
+                Number = guessResult.GuessNumber,
                 DateCreated = DateTime.UtcNow,
                 UserId = userId,
                 BullsCount = guessResult.BullsCount,
@@ -67,6 +66,27 @@
             this.guesses.SaveChanges();
 
             return newGuess;
+        }
+
+        public Guess MakeComputerGuess(string userId)
+        {
+            Game currentGame = this.GetCurrentGame(userId);
+            GuessResult computerGuessResult = this.gameManager.ComputerMakeGuess(currentGame.PlayerNumber);
+
+            Guess newComputerGuess = new Guess()
+            {
+                GameId = currentGame.Id,
+                Number = computerGuessResult.GuessNumber,
+                DateCreated = DateTime.UtcNow,
+                UserId = null,
+                BullsCount = computerGuessResult.BullsCount,
+                CowsCount = computerGuessResult.CowsCount
+            };
+
+            this.guesses.Add(newComputerGuess);
+            this.guesses.SaveChanges();
+
+            return newComputerGuess;
         }
     }
 }

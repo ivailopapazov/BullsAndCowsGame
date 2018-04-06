@@ -9,5 +9,7 @@
         Game GetCurrentGame(string userId);
 
         Guess MakeGuess(string guessNumber, string userId);
+
+        Guess MakeComputerGuess(string userId);
     }
 }

@@ -20,7 +20,11 @@
 
         public GuessResult CheckNumber(string guess, string number)
         {
-            GuessResult result = new GuessResult();
+            GuessResult result = new GuessResult()
+            {
+                GuessNumber = guess,
+                SecretNumber = number
+            };
 
             for (int i = 0; i < number.Length; i++)
             {
@@ -40,6 +44,15 @@
                     }
                 }
             }
+
+            return result;
+        }
+
+        public GuessResult ComputerMakeGuess(string playerNumber)
+        {
+            // TODO: Implement something smart here
+            var computerGuess = this.numberGenerator.GenerateGameNumber();
+            var result = this.CheckNumber(computerGuess, playerNumber);
 
             return result;
         }

@@ -7,5 +7,7 @@
         string GenerateGameNumber();
 
         GuessResult CheckNumber(string guess, string number);
+
+        GuessResult ComputerMakeGuess(string playerNumber);
     }
 }
