@@ -56,7 +56,8 @@
                     {
                         UpdateTargetId = "player-guess-list",
                         InsertionMode = InsertionMode.InsertAfter,
-                        OnComplete = "OnPlayerGuessComplete"
+                        OnComplete = "OnPlayerGuessComplete",
+                        
                     }))
                 {
                     <label for="player-guess">Your guess:</label>
@@ -109,9 +110,13 @@
 
         setTimeout(function () {
             // jQuery hack to load partial template into computer guess list
-            var a = $('<div>').load('@Url.Action("MakeGuess", "Game")', function () {
-                $(this).find('tr').first().appendTo('#computer-guess-list');
-            })
+            $('<div>').load('@Url.Action("MakeGuess", "Game")', function (response) {
+                if (response == "window.location = '/Game/Results'") {
+                    eval(response);
+                }
+
+                $(response).appendTo('#computer-guess-list');
+            });
 
             $('#waiting-computer-guess').addClass('hidden');
         }, 2000); // Set random timer for better user experience

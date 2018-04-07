@@ -66,8 +66,8 @@
                     var possibleGuessNumber = currentNode.Value;
                     var possibleGuess = this.CheckNumber(possibleGuessNumber, actualGuessNumber);
 
-                    if (possibleGuess.BullsCount != actualGuess.BullsCount
-                        || possibleGuess.CowsCount != actualGuess.CowsCount)
+                    if (possibleGuess.BullsCount != actualGuess.BullsCount)
+                        //|| possibleGuess.CowsCount != actualGuess.CowsCount) // TODO: Manage difficulty
                     {
                         numberList.Remove(currentNode);
                     }
