@@ -4,6 +4,7 @@
     using BullsAndCows.Logic.Contracts;
     using BullsAndCows.Logic.Models;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class GameManager : IGameManager
     {
@@ -51,10 +52,33 @@
 
         public string GenerateGuessNumber(IEnumerable<GuessResult> guesses)
         {
-            // TODO: Implement something smart here
-            var computerGuess = this.numberGenerator.GenerateGameNumber();
+            var numberList = this.numberGenerator.GenerateNumberList();
 
-            return computerGuess;
+            foreach (var actualGuess in guesses)
+            {
+                var currentNode = numberList.First;
+
+                while (currentNode != null)
+                {
+                    var nextNode = currentNode.Next;
+
+                    var actualGuessNumber = actualGuess.GuessNumber;
+                    var possibleGuessNumber = currentNode.Value;
+                    var possibleGuess = this.CheckNumber(possibleGuessNumber, actualGuessNumber);
+
+                    if (possibleGuess.BullsCount != actualGuess.BullsCount
+                        || possibleGuess.CowsCount != actualGuess.CowsCount)
+                    {
+                        numberList.Remove(currentNode);
+                    }
+
+                    currentNode = nextNode;
+                }
+            }
+
+            // TODO: Take random number from list
+
+            return numberList.First.Value;
         }
     }
 }

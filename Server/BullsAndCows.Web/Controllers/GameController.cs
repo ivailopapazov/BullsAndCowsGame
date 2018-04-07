@@ -104,7 +104,7 @@
                 bool isVictory = !isComputerGuess;
                 this.games.EndGame(userId, isVictory);
 
-                // send to score service
+                // TODO: Send to score service
 
                 return JavaScript("window.location = '/Game/Results'");
             }

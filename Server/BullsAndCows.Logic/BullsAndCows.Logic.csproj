@@ -40,12 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="Common\INumberGenerator.cs" />
     <Compile Include="Common\NumberGenerator.cs" />
     <Compile Include="Contracts\IGameManager.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Models\GuessResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GameMechanics\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
