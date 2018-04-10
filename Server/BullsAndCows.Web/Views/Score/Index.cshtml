@@ -5,7 +5,21 @@
 
 <h2>Scores</h2>
 
-@foreach (var item in Model)
-{
-    <h2>@item.UserName</h2>
-}
+<table class="table table-hover">
+    <tr>
+        <th>Rank</th>
+        <th>User</th>
+        <th>Wins</th>
+        <th>Losess</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>#</td>
+        <td>@item.UserName</td>
+        <td>@item.WinCount</td>
+        <td>@item.LoseCount</td>
+    </tr>
+    }
+</table>
+
