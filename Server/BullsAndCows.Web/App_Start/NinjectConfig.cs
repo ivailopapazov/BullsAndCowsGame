@@ -16,6 +16,7 @@
             kernel.Bind<DbContext>().To<BullsAndCowsDbContext>();
             kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
             kernel.Bind<IGameService>().To<GameService>();
+            kernel.Bind<IScoreService>().To<ScoreService>();
             kernel.Bind<INumberGenerator>().To<NumberGenerator>();
             kernel.Bind<IGameManager>().To<GameManager>();
         }

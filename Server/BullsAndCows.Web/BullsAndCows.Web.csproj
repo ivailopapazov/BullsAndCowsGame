@@ -207,6 +207,7 @@
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ScoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,6 +219,7 @@
     <Compile Include="ViewModels\GameStateViewModel.cs" />
     <Compile Include="ViewModels\GuessViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\HighScoreViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -282,6 +284,7 @@
     <Content Include="Views\Shared\_GuessRow.cshtml" />
     <Content Include="Views\Shared\_NumberControlsGameStarted.cshtml" />
     <Content Include="Views\Game\Results.cshtml" />
+    <Content Include="Views\Score\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

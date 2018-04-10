@@ -1,0 +1,11 @@
+﻿@model IEnumerable<BullsAndCows.Web.ViewModels.HighScoreViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Scores</h2>
+
+@foreach (var item in Model)
+{
+    <h2>@item.UserName</h2>
+}
