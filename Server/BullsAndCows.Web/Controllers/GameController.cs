@@ -2,18 +2,22 @@
 {
     using BullsAndCows.Models;
     using BullsAndCows.Services.Contracts;
+    using BullsAndCows.Web.Hubs;
     using BullsAndCows.Web.ViewModels;
     using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.SignalR;
     using System.Linq;
     using System.Web.Mvc;
 
     public class GameController : Controller
     {
         private IGameService games;
+        private IHubContext hubContext;
 
         public GameController(IGameService games)
         {
             this.games = games;
+            this.hubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>(); // TODO: inject
         }
 
         public ActionResult Index()
@@ -103,10 +107,8 @@
             {
                 bool isVictory = !isComputerGuess;
                 this.games.EndGame(userId, isVictory);
-
-                // TODO: Send to score service
-
-                return JavaScript("window.location = '/Game/Results'");
+ 
+                this.hubContext.Clients.User(this.User.Identity.Name).endGame();
             }
 
             var result = new GuessViewModel()

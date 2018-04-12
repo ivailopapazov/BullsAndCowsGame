@@ -57,7 +57,7 @@
                         UpdateTargetId = "player-guess-list",
                         InsertionMode = InsertionMode.InsertAfter,
                         OnComplete = "OnPlayerGuessComplete",
-                        
+
                     }))
                 {
                     <label for="player-guess">Your guess:</label>
@@ -99,8 +99,19 @@
         </div>
     </div>
 </div>
-
 <script>
+    window.onload = function () {
+        var game = $.connection.game;
+
+        game.client.endGame = onGameEnd;
+
+        $.connection.hub.start();
+    };
+
+    function onGameEnd() {
+        window.location = '/Game/Results';
+    }
+
     function showGameBoard() {
         //$('#guess-controls').removeClass('hidden');
     }
@@ -111,10 +122,6 @@
         setTimeout(function () {
             // jQuery hack to load partial template into computer guess list
             $('<div>').load('@Url.Action("MakeGuess", "Game")', function (response) {
-                if (response == "window.location = '/Game/Results'") {
-                    eval(response);
-                }
-
                 $(response).appendTo('#computer-guess-list');
             });
 
@@ -122,3 +129,9 @@
         }, 2000); // Set random timer for better user experience
     }
 </script>
+
+@section Scripts {
+    <script src="/Scripts/jquery.signalR-2.2.3.js"></script>
+    <script src="/signalr/hubs"></script>
+}
+
