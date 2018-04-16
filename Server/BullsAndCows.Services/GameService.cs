@@ -57,37 +57,50 @@
             return lastGame;
         }
 
-        public Guess MakeGuess(string userId, bool isComputerGuess = true, string guessNumber = null)
+        public Guess MakeComputerGuess(string userId)
         {
             Game currentGame = this.GetCurrentGame(userId);
-            GuessResult guessResult;
 
-            // If it's computer
-            if (isComputerGuess)
-            {
-                var computerGuessList = currentGame.Guesses
-                        .Where(g => g.UserId == null)
-                        .Select(g => new GuessResult()
-                        {
-                            GuessNumber = g.Number,
-                            BullsCount = g.BullsCount,
-                            CowsCount = g.CowsCount
-                        });
+            var computerGuessList = currentGame.Guesses
+                .Where(g => g.UserId == null)
+                .Select(g => new GuessResult()
+                {
+                    GuessNumber = g.Number,
+                    BullsCount = g.BullsCount,
+                    CowsCount = g.CowsCount
+                });
 
-                guessNumber = this.gameManager.GenerateGuessNumber(computerGuessList);
-                guessResult = this.gameManager.CheckNumber(guessNumber, currentGame.PlayerNumber);
-            }
-            else
-            {
-                guessResult = this.gameManager.CheckNumber(guessNumber, currentGame.ComputerNumber);
-            }
+            var computerGuessNumber = this.gameManager.GenerateGuessNumber(computerGuessList);
+            var guessResult = this.gameManager.CheckNumber(computerGuessNumber, currentGame.PlayerNumber);
 
             Guess newGuess = new Guess()
             {
                 GameId = currentGame.Id,
                 Number = guessResult.GuessNumber,
                 DateCreated = DateTime.UtcNow,
-                UserId = isComputerGuess ? null : userId,
+                UserId = null,
+                BullsCount = guessResult.BullsCount,
+                CowsCount = guessResult.CowsCount,
+            };
+
+            this.guesses.Add(newGuess);
+            this.guesses.SaveChanges();
+
+            return newGuess;
+        }
+
+        public Guess MakeUserGuess(string userId, string guessNumber)
+        {
+            Game currentGame = this.GetCurrentGame(userId);
+
+            GuessResult guessResult = this.gameManager.CheckNumber(guessNumber, currentGame.ComputerNumber);
+
+            Guess newGuess = new Guess()
+            {
+                GameId = currentGame.Id,
+                Number = guessResult.GuessNumber,
+                DateCreated = DateTime.UtcNow,
+                UserId = userId,
                 BullsCount = guessResult.BullsCount,
                 CowsCount = guessResult.CowsCount,
             };

@@ -104,12 +104,23 @@
         var game = $.connection.game;
 
         game.client.endGame = onGameEnd;
+        game.client.playComputerTurn = onComputerTurn;
 
         $.connection.hub.start();
     };
 
     function onGameEnd() {
         window.location = '/Game/Results';
+    }
+
+    function onComputerTurn(resultRow) {
+        $('#computer-guess-list').append(`
+            <tr>
+                <td>${resultRow.Id}</td>
+                <td>${resultRow.Number}</td>
+                <td>${resultRow.BullsCount} Bulls</td>
+                <td>${resultRow.CowsCount} Cows</td>
+            </tr>`);
     }
 
     function showGameBoard() {
@@ -120,10 +131,7 @@
         $('#waiting-computer-guess').removeClass('hidden');
 
         setTimeout(function () {
-            // jQuery hack to load partial template into computer guess list
-            $('<div>').load('@Url.Action("MakeGuess", "Game")', function (response) {
-                $(response).appendTo('#computer-guess-list');
-            });
+            $.connection.game.server.playComputerTurn();
 
             $('#waiting-computer-guess').addClass('hidden');
         }, 2000); // Set random timer for better user experience

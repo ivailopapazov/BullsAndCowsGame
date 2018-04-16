@@ -99,14 +99,14 @@
             return PartialView("_NumberControlsGameStarted", result);
         }
 
-        public ActionResult MakeGuess(bool isComputerGuess = true, string guessNumber = null)
+        public ActionResult MakeGuess(string guessNumber)
         {
             var userId = this.User.Identity.GetUserId();
-            var newGuess = this.games.MakeGuess(userId, isComputerGuess, guessNumber);
+
+            var newGuess = this.games.MakeUserGuess(userId, guessNumber);
             if (newGuess.BullsCount == 4)
             {
-                bool isVictory = !isComputerGuess;
-                this.games.EndGame(userId, isVictory);
+                this.games.EndGame(userId, true);
  
                 this.hubContext.Clients.User(this.User.Identity.Name).endGame();
             }

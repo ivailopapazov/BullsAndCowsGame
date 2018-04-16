@@ -6,6 +6,9 @@
     using BullsAndCows.Logic.Contracts;
     using BullsAndCows.Services;
     using BullsAndCows.Services.Contracts;
+    using BullsAndCows.Web.IoC;
+    using Microsoft.AspNet.SignalR;
+    using Microsoft.AspNet.SignalR.Hubs;
     using Ninject;
     using System.Data.Entity;
 
@@ -13,6 +16,9 @@
     {
         public static void RegisterServices(IKernel kernel)
         {
+            // Integrate SignalR Hubs with Ninject
+            GlobalHost.DependencyResolver.Register(typeof(IHubActivator), () => new HubActivator(kernel));
+
             kernel.Bind<DbContext>().To<BullsAndCowsDbContext>();
             kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
             kernel.Bind<IGameService>().To<GameService>();

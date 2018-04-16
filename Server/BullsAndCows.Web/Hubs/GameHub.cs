@@ -1,16 +1,22 @@
 ﻿namespace BullsAndCows.Web.Hubs
 {
+    using BullsAndCows.Services.Contracts;
+    using BullsAndCows.Web.ViewModels;
+    using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.SignalR;
     using Microsoft.AspNet.SignalR.Hubs;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     [Authorize]
     [HubName("game")]
     public class GameHub : Hub
     {
         private static IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
-        private static Dictionary<string, string> connectionMappings = new Dictionary<string, string>();
+        private IGameService games;
+
+        public GameHub(IGameService games)
+        {
+            this.games = games;
+        }
 
         public static void UserGameEnded(string userName)
         {
@@ -22,22 +28,30 @@
             //}
         }
 
-        //public override Task OnConnected()
-        //{
-        //    string name = Context.User.Identity.Name;
+        public void PlayComputerTurn()
+        {
+            string userId = this.Context.User.Identity.GetUserId();
+            string userName = this.Context.User.Identity.Name;
 
-        //    //connectionMappings.Add(name, Context.ConnectionId);
+            var newComputerGuess = this.games.MakeComputerGuess(userId);
 
-        //    return base.OnConnected();
-        //}
+            var result = new GuessViewModel()
+            {
+                Id = newComputerGuess.Id,
+                Number = newComputerGuess.Number,
+                BullsCount = newComputerGuess.BullsCount,
+                CowsCount = newComputerGuess.CowsCount,
+                DateCreated = newComputerGuess.DateCreated
+            };
 
-        //public override Task OnDisconnected(bool stopCalled)
-        //{
-        //    string name = Context.User.Identity.Name;
+            this.Clients.User(userName).playComputerTurn(result);
 
-        //    connectionMappings.Remove(name);
+            if (newComputerGuess.BullsCount == 4)
+            {
+                this.games.EndGame(userId, false);
 
-        //    return base.OnDisconnected(stopCalled);
-        //}
+                this.Clients.User(userName).endGame();
+            }
+        }
     }
 }

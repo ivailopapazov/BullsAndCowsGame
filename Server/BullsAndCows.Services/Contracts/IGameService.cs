@@ -10,7 +10,9 @@
 
         Game GetLastGame(string userId);
 
-        Guess MakeGuess(string userId, bool isComputerGuess = true, string guessNumber = null);
+        Guess MakeComputerGuess(string userId);
+
+        Guess MakeUserGuess(string userId, string guessNumber);
 
         void EndGame(string userId, bool isVictory);
     }

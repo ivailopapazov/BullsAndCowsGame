@@ -22,6 +22,7 @@
         protected override IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
+
             NinjectConfig.RegisterServices(kernel);
 
             return kernel;
