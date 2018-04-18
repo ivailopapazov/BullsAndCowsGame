@@ -1,0 +1,6 @@
+﻿@model BullsAndCows.Web.ViewModels.GuessViewModel
+
+@Html.LabelFor(x => x.Number)
+@Html.TextBoxFor(x => x.Number)
+@Html.ValidationMessageFor(x => x.Number)
+<input type="submit" value="make guess" />

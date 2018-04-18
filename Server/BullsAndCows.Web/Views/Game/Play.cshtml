@@ -20,8 +20,11 @@
                             OnComplete = "showGameBoard"
                         }))
                         {
-                            <label for="player-number">Enter your secret number</label>
-                            <input type="text" id="player-number" name="PlayerNumber" />
+                            @*<label for="player-number">Enter your secret number</label>
+                            <input type="text" id="player-number" name="PlayerNumber" />*@
+                            @Html.LabelFor(x => x.GameViewModel.PlayerNumber);
+                            @Html.TextBoxFor(x => x.GameViewModel.PlayerNumber);
+                            @Html.ValidationMessageFor(x => x.GameViewModel.PlayerNumber);
                             <input type="submit" value="Start" />
                         }
                     }
@@ -59,9 +62,7 @@
 
                     }))
                 {
-                    <label for="player-guess">Your guess:</label>
-                    <input type="text" id="player-guess" name="Number" />
-                    <input type="submit" value="make guess" />
+                    @Html.Partial("_GuessForm", new BullsAndCows.Web.ViewModels.GuessViewModel());
                 }
             </div>
         </div>

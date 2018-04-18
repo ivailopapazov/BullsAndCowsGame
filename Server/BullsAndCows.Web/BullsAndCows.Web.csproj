@@ -296,6 +296,7 @@
     <Content Include="Views\Shared\_NumberControlsGameStarted.cshtml" />
     <Content Include="Views\Game\Results.cshtml" />
     <Content Include="Views\Score\Index.cshtml" />
+    <Content Include="Views\Shared\_GuessForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

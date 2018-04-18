@@ -8,7 +8,6 @@
     using Microsoft.AspNet.SignalR;
     using System.Linq;
     using System.Net;
-    using System.Web.Helpers;
     using System.Web.Mvc;
 
     public class GameController : Controller
@@ -90,7 +89,7 @@
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new { message = "Invalid secret number" });
+                return Json(new { message = "Invalid secret number" }, JsonRequestBehavior.AllowGet);
             }
 
             var newGame = this.games.StartGame(gameViewModel.PlayerNumber, this.User.Identity.GetUserId());
@@ -107,7 +106,7 @@
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new { message = "Invalid guess number" });
+                return Json(new { message = "Invalid guess number" }, JsonRequestBehavior.AllowGet);
             }
 
             var userId = this.User.Identity.GetUserId();
