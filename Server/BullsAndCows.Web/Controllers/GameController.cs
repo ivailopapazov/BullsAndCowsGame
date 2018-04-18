@@ -7,6 +7,8 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.SignalR;
     using System.Linq;
+    using System.Net;
+    using System.Web.Helpers;
     using System.Web.Mvc;
 
     public class GameController : Controller
@@ -83,27 +85,30 @@
             return result;
         }
 
-        public ActionResult Start(string playerNumber)
+        public ActionResult Start(GameViewModel gameViewModel) //string playerNumber
         {
             // TODO: Validate number
 
-            var newGame = this.games.StartGame(playerNumber, this.User.Identity.GetUserId());
+            var newGame = this.games.StartGame(gameViewModel.PlayerNumber, this.User.Identity.GetUserId());
 
-            var result = new GameViewModel()
-            {
-                Id = newGame.Id,
-                PlayerNumber = newGame.PlayerNumber,
-                DateCreated = newGame.DateCreated
-            };
+            gameViewModel.Id = newGame.Id;
+            gameViewModel.PlayerNumber = newGame.PlayerNumber;
+            gameViewModel.DateCreated = newGame.DateCreated;
 
-            return PartialView("_NumberControlsGameStarted", result);
+            return PartialView("_NumberControlsGameStarted", gameViewModel);
         }
 
-        public ActionResult MakeGuess(string guessNumber)
+        public ActionResult MakeGuess(GuessViewModel guess)
         {
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Invalid guess number" });
+            }
+
             var userId = this.User.Identity.GetUserId();
 
-            var newGuess = this.games.MakeUserGuess(userId, guessNumber);
+            var newGuess = this.games.MakeUserGuess(userId, guess.Number);
             if (newGuess.BullsCount == 4)
             {
                 this.games.EndGame(userId, true);
@@ -111,16 +116,12 @@
                 this.hubContext.Clients.User(this.User.Identity.Name).endGame();
             }
 
-            var result = new GuessViewModel()
-            {
-                Id = newGuess.Id,
-                Number = newGuess.Number,
-                BullsCount = newGuess.BullsCount,
-                CowsCount = newGuess.CowsCount,
-                DateCreated = newGuess.DateCreated
-            };
+            guess.Id = newGuess.Id;
+            guess.BullsCount = newGuess.BullsCount;
+            guess.CowsCount = newGuess.CowsCount;
+            guess.DateCreated = newGuess.DateCreated;
 
-            return PartialView("_GuessRow", result);
+            return PartialView("_GuessRow", guess);
         }
     }
 }

@@ -2,6 +2,7 @@
 {
     using BullsAndCows.Models;
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq.Expressions;
 
     public class GuessViewModel
@@ -23,6 +24,9 @@
 
         public int Id { get; set; }
 
+        [MinLength(4)]
+        [MaxLength(4)]
+        [RegularExpression(@"^[1-9]", ErrorMessage = "Use only digits from 1 to 9")]
         public string Number { get; set; }
 
         public int BullsCount { get; set; }

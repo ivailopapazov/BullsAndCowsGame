@@ -57,6 +57,7 @@
             return lastGame;
         }
 
+        // TODO: Remove code repetition
         public Guess MakeComputerGuess(string userId)
         {
             Game currentGame = this.GetCurrentGame(userId);

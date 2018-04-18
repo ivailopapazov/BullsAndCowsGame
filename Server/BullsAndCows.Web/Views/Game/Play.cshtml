@@ -21,7 +21,7 @@
                         }))
                         {
                             <label for="player-number">Enter your secret number</label>
-                            <input type="text" id="player-number" name="playerNumber" />
+                            <input type="text" id="player-number" name="PlayerNumber" />
                             <input type="submit" value="Start" />
                         }
                     }
@@ -51,17 +51,16 @@
 
             <div class="panel-footer" id="player-guess-controls">
                 @using (Ajax.BeginForm("MakeGuess",
-                    new { isComputerGuess = false },
                     new AjaxOptions
                     {
                         UpdateTargetId = "player-guess-list",
                         InsertionMode = InsertionMode.InsertAfter,
-                        OnComplete = "OnPlayerGuessComplete",
+                        OnSuccess = "OnPlayerGuessComplete",
 
                     }))
                 {
                     <label for="player-guess">Your guess:</label>
-                    <input type="text" id="player-guess" name="guessNumber" />
+                    <input type="text" id="player-guess" name="Number" />
                     <input type="submit" value="make guess" />
                 }
             </div>
@@ -141,5 +140,7 @@
 @section Scripts {
     <script src="/Scripts/jquery.signalR-2.2.3.js"></script>
     <script src="/signalr/hubs"></script>
+    <script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
+    <script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
 }
 
