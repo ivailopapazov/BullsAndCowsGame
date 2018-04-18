@@ -87,7 +87,11 @@
 
         public ActionResult Start(GameViewModel gameViewModel) //string playerNumber
         {
-            // TODO: Validate number
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Invalid secret number" });
+            }
 
             var newGame = this.games.StartGame(gameViewModel.PlayerNumber, this.User.Identity.GetUserId());
 
