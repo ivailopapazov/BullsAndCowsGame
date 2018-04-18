@@ -228,6 +228,7 @@
     <Compile Include="ViewModels\GuessViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\HighScoreViewModel.cs" />
+    <Compile Include="ViewModels\Validation\DistinctCharactersAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
