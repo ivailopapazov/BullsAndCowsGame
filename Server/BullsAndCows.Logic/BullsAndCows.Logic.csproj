@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Common\INumberGenerator.cs" />
     <Compile Include="Common\NumberGenerator.cs" />
     <Compile Include="Contracts\IGameManager.cs" />

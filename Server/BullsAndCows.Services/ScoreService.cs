@@ -18,7 +18,6 @@
 
         public IEnumerable<HighScoreDto> GetHighScores()
         {
-
             var highScoreResult = this.games
                 .All()
                 .Where(g => g.IsFinished)

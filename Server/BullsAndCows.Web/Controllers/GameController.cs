@@ -10,6 +10,7 @@
     using System.Net;
     using System.Web.Mvc;
 
+    [System.Web.Mvc.Authorize]
     public class GameController : Controller
     {
         private IGameService games;
@@ -18,7 +19,7 @@
         public GameController(IGameService games)
         {
             this.games = games;
-            this.hubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>(); // TODO: inject
+            this.hubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>(); 
         }
 
         public ActionResult Index()

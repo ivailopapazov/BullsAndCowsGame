@@ -6,6 +6,7 @@
     using BullsAndCows.Logic.Contracts;
     using BullsAndCows.Services;
     using BullsAndCows.Services.Contracts;
+    using BullsAndCows.Web.Hubs;
     using BullsAndCows.Web.IoC;
     using Microsoft.AspNet.SignalR;
     using Microsoft.AspNet.SignalR.Hubs;

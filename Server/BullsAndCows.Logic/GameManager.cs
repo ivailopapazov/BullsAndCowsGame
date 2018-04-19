@@ -24,8 +24,7 @@
         {
             GuessResult result = new GuessResult()
             {
-                GuessNumber = guess,
-                SecretNumber = number
+                GuessNumber = guess
             };
 
             for (int i = 0; i < number.Length; i++)
@@ -66,8 +65,8 @@
                     var possibleGuessNumber = currentNode.Value;
                     var possibleGuess = this.CheckNumber(possibleGuessNumber, actualGuessNumber);
 
-                    if (possibleGuess.BullsCount != actualGuess.BullsCount)
-                        //|| possibleGuess.CowsCount != actualGuess.CowsCount) // TODO: Manage difficulty
+                    if (possibleGuess.BullsCount != actualGuess.BullsCount
+                        || possibleGuess.CowsCount != actualGuess.CowsCount)
                     {
                         numberList.Remove(currentNode);
                     }
@@ -75,8 +74,6 @@
                     currentNode = nextNode;
                 }
             }
-
-            // TODO: Take random number from list
 
             return numberList.First.Value;
         }
