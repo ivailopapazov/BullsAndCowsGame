@@ -37,7 +37,6 @@
     <div class="col-md-offset-1 col-md-5">
         <div class="panel panel-primary">
             <div class="panel-heading" id="table-heading">
-                <span>Player</span>
                 @if (Model.GameViewModel.PlayerNumber != null)
                 {
                     Html.RenderPartial("_NumberControlsGameStarted", Model.GameViewModel);
@@ -68,7 +67,8 @@
                     {
                         UpdateTargetId = "player-guess-list",
                         InsertionMode = InsertionMode.InsertAfter,
-                        OnSuccess = "OnPlayerGuessSuccess",
+                        OnSuccess = "onPlayerGuessSuccess",
+                        OnFailure = "onInvalidGameNumber"
 
                     },
                     new { @class = "form-inline" }))
@@ -144,7 +144,7 @@
         }, 2000);
     }
 
-    function OnPlayerGuessSuccess() {
+    function onPlayerGuessSuccess() {
         $('#waiting-computer-guess').removeClass('hidden');
 
         setTimeout(function () {
