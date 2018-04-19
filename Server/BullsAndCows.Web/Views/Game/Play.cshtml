@@ -5,33 +5,45 @@
 
 <h2>Play</h2>
 
-<div class="row">
+
+<div class="row @(Model.GameViewModel.PlayerNumber == null ? "" : "hidden")" id="start-game-field">
+    <div class="col-md-offset-4 col-md-4">
+        @using (Ajax.BeginForm("Start",
+            new AjaxOptions
+            {
+                UpdateTargetId = "table-heading",
+                InsertionMode = InsertionMode.InsertAfter,
+                OnSuccess = "showGameBoard",
+                OnFailure = "onInvalidGameNumber"
+            }))
+        {
+            <div class="form-group">
+                @Html.LabelFor(x => x.GameViewModel.PlayerNumber)
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.GameViewModel.PlayerNumber,
+                    new { @class = "form-control", placeholder = "Place you secret number here"})
+            </div>
+            <div class="form-group text-danger" id="game-number-validation">
+                @Html.ValidationMessageFor(x => x.GameViewModel.PlayerNumber)
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Start" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>
+<div class="row @(Model.GameViewModel.PlayerNumber == null ? "hidden" : "")" id="play-game-field">
     <div class="col-md-offset-1 col-md-5">
         <div class="panel panel-primary">
-            <div class="panel-heading">Player</div>
+            <div class="panel-heading" id="table-heading">
+                <span>Player</span>
+                @if (Model.GameViewModel.PlayerNumber != null)
+                {
+                    Html.RenderPartial("_NumberControlsGameStarted", Model.GameViewModel);
+                }
+            </div>
             <div class="panel-body">
-                <div id="number-controls">
-                    @if (Model.GameViewModel.PlayerNumber == null)
-                    {
-                        using (Ajax.BeginForm("Start", new AjaxOptions
-                        {
-                            UpdateTargetId = "number-controls",
-                            InsertionMode = InsertionMode.Replace,
-                            OnComplete = "showGameBoard"
-                        }))
-                        {
-                            @Html.LabelFor(x => x.GameViewModel.PlayerNumber);
-                            @Html.TextBoxFor(x => x.GameViewModel.PlayerNumber);
-                            @Html.ValidationMessageFor(x => x.GameViewModel.PlayerNumber);
-                            <input type="submit" value="Start" />
-                        }
-                    }
-                    else
-                    {
-                        Html.RenderPartial("_NumberControlsGameStarted", Model.GameViewModel);
-                    }
-                </div>
-
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -51,13 +63,15 @@
 
             <div class="panel-footer" id="player-guess-controls">
                 @using (Ajax.BeginForm("MakeGuess",
+                    null,
                     new AjaxOptions
                     {
                         UpdateTargetId = "player-guess-list",
                         InsertionMode = InsertionMode.InsertAfter,
                         OnSuccess = "OnPlayerGuessSuccess",
 
-                    }))
+                    },
+                    new { @class = "form-inline" }))
                 {
                     @Html.Partial("_GuessForm", new BullsAndCows.Web.ViewModels.GuessViewModel());
                 }
@@ -68,10 +82,6 @@
         <div class="panel panel-danger">
             <div class="panel-heading">Computer</div>
             <div class="panel-body">
-                <div id="number-controls">
-
-                </div>
-
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -111,15 +121,27 @@
 
     function onComputerTurn(resultRow) {
         $('#computer-guess-list').append(`
-            <tr>
-                <td>${resultRow.Number}</td>
-                <td>${resultRow.BullsCount} Bulls</td>
-                <td>${resultRow.CowsCount} Cows</td>
-            </tr>`);
+                <tr>
+                    <td>${resultRow.Number}</td>
+                    <td>${resultRow.BullsCount} Bulls</td>
+                    <td>${resultRow.CowsCount} Cows</td>
+                </tr>`);
     }
 
     function showGameBoard() {
-        //$('#guess-controls').removeClass('hidden');
+        $('#start-game-field').addClass('hidden');
+        $('#play-game-field').removeClass('hidden');
+    }
+
+    function onInvalidGameNumber(err) {
+        var message = err.responseJSON.message;
+
+        var $errorMessage = $(`<span>${message}</span>`)
+        $('#game-number-validation').append($errorMessage);
+
+        setTimeout(function () {
+            $errorMessage.detach();
+        }, 2000);
     }
 
     function OnPlayerGuessSuccess() {
