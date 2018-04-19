@@ -20,8 +20,6 @@
                             OnComplete = "showGameBoard"
                         }))
                         {
-                            @*<label for="player-number">Enter your secret number</label>
-                                <input type="text" id="player-number" name="PlayerNumber" />*@
                             @Html.LabelFor(x => x.GameViewModel.PlayerNumber);
                             @Html.TextBoxFor(x => x.GameViewModel.PlayerNumber);
                             @Html.ValidationMessageFor(x => x.GameViewModel.PlayerNumber);

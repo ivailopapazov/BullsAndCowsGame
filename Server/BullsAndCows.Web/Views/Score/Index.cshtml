@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BullsAndCows.Web.ViewModels.HighScoreViewModel>
+﻿@model IList<BullsAndCows.Web.ViewModels.HighScoreViewModel>
 @{
     ViewBag.Title = "Index";
 }
@@ -12,14 +12,14 @@
         <th>Wins</th>
         <th>Losess</th>
     </tr>
-    @foreach (var item in Model)
+    @for (int i = 0; i < Model.Count(); i++)
     {
-    <tr>
-        <td>#</td>
-        <td>@item.UserName</td>
-        <td>@item.WinCount</td>
-        <td>@item.LoseCount</td>
-    </tr>
+        <tr>
+            <td>@(i + 1)</td>
+            <td>@Model[i].UserName</td>
+            <td>@Model[i].WinCount</td>
+            <td>@Model[i].LoseCount</td>
+        </tr>
     }
 </table>
 

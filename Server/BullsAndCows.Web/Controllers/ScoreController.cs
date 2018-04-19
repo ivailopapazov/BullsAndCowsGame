@@ -18,7 +18,8 @@
         {
             var highScores = this.scores.GetHighScores()
                 .AsQueryable()
-                .Select(HighScoreViewModel.FromHighScoreDto);
+                .Select(HighScoreViewModel.FromHighScoreDto)
+                .ToList();
 
             return View(highScores);
         }
