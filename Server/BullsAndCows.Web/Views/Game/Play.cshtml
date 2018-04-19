@@ -58,7 +58,7 @@
                     {
                         UpdateTargetId = "player-guess-list",
                         InsertionMode = InsertionMode.InsertAfter,
-                        OnSuccess = "OnPlayerGuessComplete",
+                        OnSuccess = "OnPlayerGuessSuccess",
 
                     }))
                 {
@@ -127,14 +127,14 @@
         //$('#guess-controls').removeClass('hidden');
     }
 
-    function OnPlayerGuessComplete() {
+    function OnPlayerGuessSuccess() {
         $('#waiting-computer-guess').removeClass('hidden');
 
         setTimeout(function () {
             $.connection.game.server.playComputerTurn();
 
             $('#waiting-computer-guess').addClass('hidden');
-        }, 2000); // Set random timer for better user experience
+        }, Math.random() * 2000); 
     }
 </script>
 
