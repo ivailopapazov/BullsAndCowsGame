@@ -6,7 +6,7 @@
 <h2>Play</h2>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-offset-1 col-md-5">
         <div class="panel panel-primary">
             <div class="panel-heading">Player</div>
             <div class="panel-body">
@@ -21,7 +21,7 @@
                         }))
                         {
                             @*<label for="player-number">Enter your secret number</label>
-                            <input type="text" id="player-number" name="PlayerNumber" />*@
+                                <input type="text" id="player-number" name="PlayerNumber" />*@
                             @Html.LabelFor(x => x.GameViewModel.PlayerNumber);
                             @Html.TextBoxFor(x => x.GameViewModel.PlayerNumber);
                             @Html.ValidationMessageFor(x => x.GameViewModel.PlayerNumber);
@@ -37,7 +37,6 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Guess</th>
                             <th>Bulls</th>
                             <th>Cows</th>
@@ -67,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div class="panel panel-danger">
             <div class="panel-heading">Computer</div>
             <div class="panel-body">
@@ -78,7 +77,6 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Guess</th>
                             <th>Bulls</th>
                             <th>Cows</th>
@@ -116,7 +114,6 @@
     function onComputerTurn(resultRow) {
         $('#computer-guess-list').append(`
             <tr>
-                <td>${resultRow.Id}</td>
                 <td>${resultRow.Number}</td>
                 <td>${resultRow.BullsCount} Bulls</td>
                 <td>${resultRow.CowsCount} Cows</td>
@@ -134,7 +131,7 @@
             $.connection.game.server.playComputerTurn();
 
             $('#waiting-computer-guess').addClass('hidden');
-        }, Math.random() * 2000); 
+        }, Math.random() * 2000);
     }
 </script>
 
