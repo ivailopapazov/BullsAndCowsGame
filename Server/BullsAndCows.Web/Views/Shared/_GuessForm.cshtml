@@ -1,10 +1,10 @@
 ﻿@model BullsAndCows.Web.ViewModels.GuessViewModel
 
 @Html.TextBoxFor(x => x.Number,
-    new { @class = "form-control", placeholder = "Guess Number" })
+    new { @class = "form-control", placeholder = "Guess Number"})
 <input type="submit" value="Guess" class="btn btn-success" />
 
-<div class="form-group text-danger">
+<div class="form-group text-danger" id="guess-number-validation">
     @Html.ValidationMessageFor(x => x.Number)
 </div>
 

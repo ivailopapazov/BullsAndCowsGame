@@ -68,8 +68,7 @@
                         UpdateTargetId = "player-guess-list",
                         InsertionMode = InsertionMode.InsertAfter,
                         OnSuccess = "onPlayerGuessSuccess",
-                        OnFailure = "onInvalidGameNumber"
-
+                        OnFailure = "onInvalidGuessNumber",
                     },
                     new { @class = "form-inline" }))
                 {
@@ -134,10 +133,20 @@
     }
 
     function onInvalidGameNumber(err) {
+        $parent = $('#game-number-validation');
+        onInvalidNumber(err, $parent);
+    }
+
+    function onInvalidGuessNumber(err) {
+        $parent = $('#guess-number-validation');
+        onInvalidNumber(err, $parent);
+    }
+
+    function onInvalidNumber(err, $parent) {
         var message = err.responseJSON.message;
 
         var $errorMessage = $(`<span>${message}</span>`)
-        $('#game-number-validation').append($errorMessage);
+        $parent.append($errorMessage);
 
         setTimeout(function () {
             $errorMessage.detach();
